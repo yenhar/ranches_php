@@ -28,25 +28,20 @@
         </thead>
         <tbody>
             <?php
-            $sql = "SELECT id, first_name, last_name, gender FROM users";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                // output data of each row
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" .
-                        $row["first_name"] . " " . $row["last_name"] .
-                        "</td>";
-                    echo "<td>" .
-                        $row["gender"] .
-                        "</td>";
-                    echo "<td>" .
-                        "<a href='edit.php?id=" . $row["id"] . "'>Edit</a>" .
-                        "<a href='php/delete-user.php?id=" . $row["id"] . "'>Delete</a>" .
-                        "</td>";
-                }
-            } else {
-                echo "0 results";
+            $stmt = $conn->prepare("SELECT id, first_name, last_name, gender FROM users");
+            $stmt->execute();
+            while ($row = $stmt->fetch()) {
+                echo "<tr>";
+                echo "<td>" .
+                    $row["first_name"] . " " . $row["last_name"] .
+                    "</td>";
+                echo "<td>" .
+                    $row["gender"] .
+                    "</td>";
+                echo "<td>" .
+                    "<a href='edit.php?id=" . $row["id"] . "'>Edit</a>" .
+                    "<a href='php/delete-user.php?id=" . $row["id"] . "'>Delete</a>" .
+                    "</td>";
             }
             ?>
         </tbody>

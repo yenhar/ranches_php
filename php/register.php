@@ -6,23 +6,13 @@ $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
 $gender = $_POST['gender'];
 
-$sql = "INSERT INTO users (first_name, last_name, gender)
-    VALUES ('" . $first_name . "', '" . $last_name . "', '" . $gender . "')";
+$stmt = $conn->prepare("INSERT INTO users (first_name, last_name, gender)
+    VALUES (:first_name, :last_name, :gender)");
+$stmt->bindParam(':first_name', $first_name);
+$stmt->bindParam(':last_name', $last_name);
+$stmt->bindParam(':gender', $gender);
+$stmt->execute();
 
-$error = "";
-$status = "";
+$conn = null;
 
-if ($conn->query($sql) === TRUE) {
-    $status = "success";
-} else {
-    $status = "failed";
-    $error = $conn->error;
-}
-
-$conn->close();
-
-if ($status == "success") {
-    header("location: ../index.php?status=" . $status);
-} else {
-    header("location: ../index.php?status=" . $status . "&error=" . $error);
-}
+header("location: ../index.php?");
