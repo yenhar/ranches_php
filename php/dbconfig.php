@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "php_lesson";
+$dbname = "ranches";
 $conn = "";
 
 try {

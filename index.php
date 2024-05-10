@@ -23,12 +23,14 @@
             <tr>
                 <th>Name</th>
                 <th>Gender</th>
+                <th>created_at</th>
+                <th>updated_at</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            $stmt = $conn->prepare("SELECT id, first_name, last_name, gender FROM users");
+            $stmt = $conn->prepare("SELECT id, first_name, last_name, created_at, updated_at, gender FROM users");
             $stmt->execute();
             while ($row = $stmt->fetch()) {
                 echo "<tr>";
@@ -39,8 +41,14 @@
                     $row["gender"] .
                     "</td>";
                 echo "<td>" .
+                    $row["created_at"] .
+                    "</td>";
+                echo "<td>" .
+                    $row["updated_at"] .
+                    "</td>";
+                echo "<td>" .
                     "<a href='edit.php?id=" . $row["id"] . "'>Edit</a>" .
-                    "<a href='php/delete-user.php?id=" . $row["id"] . "'>Delete</a>" .
+                    "<a href='php/delete.php?id=" . $row["id"] . "'>Delete</a>" .
                     "</td>";
             }
             ?>
